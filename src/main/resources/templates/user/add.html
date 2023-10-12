@@ -10,25 +10,33 @@
     <div>
         <label>
             User Name :
-            <input type="text" name="userName">
+            <input type="text" th:value="${userName}" name="userName">
         </label>
     </div>
     <div>
         <label>
             Email :
-            <input type="email" name="email">
+            <input type="email" th:value="${email}" name="email">
         </label>
     </div>
     <div>
         <label>
             Password :
-            <input type="password" name="verify">
+            <input type="password" name="password">
         </label>
     </div>
-    <input type="hidden" value="${user.password}" name="passward" />
     <div>
-        <input type="submit" value="Login">
-<!--        <input type="submit" value="Sign Up">-->
+        <label>
+            Verify Your Password:
+            <input type="password" name="verify" />
+        </label>
+    </div>
+    <div>
+        <p th:text="${error}"></p>
+    </div>
+
+    <div>
+        <input type="submit" value="Sign Up">
     </div>
 </form>
 </body>

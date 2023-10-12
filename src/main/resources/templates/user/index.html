@@ -6,7 +6,7 @@
     <link href="../static/styles.css" th:href="@{/styles.css}" rel="stylesheet"/>
 </head>
 <body>
-    <h1 th:text="${'Welcome ' + user.name}"></h1>
-    <a th:href="@{/serviceSelection}">Select Your Service</a>
+    <h1 th:text="'Welcome ' + ${userName}"></h1>
+    <a th:href="@{/}">Select Your Spa Service</a>
 </body>
 </html>

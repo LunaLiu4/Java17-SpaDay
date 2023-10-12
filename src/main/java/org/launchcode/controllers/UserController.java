@@ -9,22 +9,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 @RequestMapping("user")
 public class UserController {
 
-    private static List<User> userList = new ArrayList<>(){{
-        add(new User("Luna","luna.liu829@gmail.com","123"));
-        add(new User("Hui","huisen.wu@gmail.com","1234"));
-    }};
-
-//    static {
-//        userList.add()
-//    }
-//    private static final User user = new User("Luna","luna.liu829@gmail.com","123");
+//    private static List<User> userList = new ArrayList<>(){{
+//        add(new User("Luna","luna.liu829@gmail.com","123"));
+//        add(new User("Hui","huisen.wu@gmail.com","1234"));
+//    }};
     @GetMapping("/add")
     public String displayAddUserForm(){
         return "user/add";
@@ -33,15 +25,18 @@ public class UserController {
     @PostMapping("/add")
     public String processAddUserForm(Model model, @ModelAttribute User user, String verify) {
     // add form submission handling code here
-//        user = new User("Luna","luna.liu829@gmail.com","123");
-        for (User userdata: userList){
-
-        }
+        model.addAttribute("user", user);
+        model.addAttribute("verify",verify);
+        model.addAttribute("userName",user.getUserName());
+        model.addAttribute("email",user.getEmail());
         if (user.getPassword().equals(verify)) {
-            model.addAttribute("user", user);
             return "user/index";
         }
-        else return "user/add";
+        else {
+            String error = "Passwords do not match! Please change!";
+            model.addAttribute("error",error);
+            return "user/add";
+        }
     }
 
 }
