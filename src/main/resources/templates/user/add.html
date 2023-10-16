@@ -2,27 +2,27 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8"/>
-    <title>Spa User Login</title>
-    <link href="../static/styles.css" th:href="@{/styles.css}" rel="stylesheet"/>
+    <title>Spa User Sign Up</title>
+    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 <body>
-<form method="post">
+<form method="post" action="/user">
     <div>
         <label>
             User Name :
-            <input type="text" th:value="${userName}" name="userName">
+            <input type="text" th:value="${userName}" name="userName" />
         </label>
     </div>
     <div>
         <label>
             Email :
-            <input type="email" th:value="${email}" name="email">
+            <input type="email" th:value="${email}" name="email" />
         </label>
     </div>
     <div>
         <label>
             Password :
-            <input type="password" name="password">
+            <input type="password" name="password" />
         </label>
     </div>
     <div>
@@ -36,7 +36,8 @@
     </div>
 
     <div>
-        <input type="submit" value="Sign Up">
+<!--        <input type="submit" value="Sign Up">-->
+        <button type="submit">Sign Up</button>
     </div>
 </form>
 </body>

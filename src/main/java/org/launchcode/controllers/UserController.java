@@ -1,42 +1,40 @@
 package org.launchcode.controllers;
 
-
+import org.launchcode.data.UserData;
 import org.launchcode.models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("user")
 public class UserController {
 
-//    private static List<User> userList = new ArrayList<>(){{
-//        add(new User("Luna","luna.liu829@gmail.com","123"));
-//        add(new User("Hui","huisen.wu@gmail.com","1234"));
-//    }};
-    @GetMapping("/add")
+    @GetMapping("")
     public String displayAddUserForm(){
         return "user/add";
     }
 
-    @PostMapping("/add")
+    @PostMapping("")
     public String processAddUserForm(Model model, @ModelAttribute User user, String verify) {
     // add form submission handling code here
-        model.addAttribute("user", user);
-        model.addAttribute("verify",verify);
-        model.addAttribute("userName",user.getUserName());
-        model.addAttribute("email",user.getEmail());
-        if (user.getPassword().equals(verify)) {
-            return "user/index";
-        }
-        else {
+        if (!user.getPassword().equals(verify)) {
             String error = "Passwords do not match! Please change!";
             model.addAttribute("error",error);
+            model.addAttribute("verify",verify);
+            model.addAttribute("userName",user.getUserName());
+            model.addAttribute("email",user.getEmail());
             return "user/add";
         }
+        UserData.add(user);
+        model.addAttribute("user", user);
+        model.addAttribute("users", UserData.getAll());
+        return "user/index";
     }
 
+    @GetMapping("/details/{id}")
+    public String displayUserDetails(@PathVariable int id, Model model){
+        model.addAttribute("user",UserData.getById(id));
+        return "/user/details";
+    }
 }

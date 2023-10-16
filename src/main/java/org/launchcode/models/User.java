@@ -1,16 +1,27 @@
 package org.launchcode.models;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class User {
+    private static int nextId = 1;
+    private final int id;
     private String userName;
     private String email;
     private String password;
+    private LocalDate dateRegistered;
 
     public User(String userName, String email, String password) {
+        this.id = nextId;
         this.userName = userName;
         this.email = email;
         this.password = password;
+        this.dateRegistered = LocalDate.now();
+        nextId++;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getUserName() {
@@ -33,9 +44,9 @@ public class User {
         return password;
     }
 
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
+    public LocalDate getDateRegistered() {
+        return dateRegistered;
+    }
 
     @Override
     public boolean equals(Object o) {
